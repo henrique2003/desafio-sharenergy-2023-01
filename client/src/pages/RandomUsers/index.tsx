@@ -9,7 +9,7 @@ import './styles.css'
 
 const Users: React.FC = () => {
   const [users, setUsers] = useState<IRamdomUser[]>([])
-  const [currentPage, setCurrentPage] = useState(0)
+  const [currentPagination, setCurrentPagination] = useState(0)
   const [inputFilter, setInputFilter] = useState('')
 
   useEffect(() => {
@@ -24,6 +24,8 @@ const Users: React.FC = () => {
     }
 
     loadRadomusers()
+
+    setCurrentPagination(0)
   }, [])
 
   function filterUsers(): IRamdomUser[] {
@@ -49,20 +51,20 @@ const Users: React.FC = () => {
 
   function onChangeFilter(e: React.ChangeEvent<HTMLInputElement>): void {
     setInputFilter(e.target.value)
-    setCurrentPage(0)
+    setCurrentPagination(0)
   }
 
   // Pagination
   const usersPerPage = 20
-  const endOffset = currentPage + usersPerPage
-  const currentUsers = filteredUsers.slice(currentPage, endOffset)
+  const endOffset = currentPagination + usersPerPage
+  const currentUsers = filteredUsers.slice(currentPagination, endOffset)
   const pageCount = Math.ceil(filteredUsers.length / usersPerPage)
 
 
   const handlePageClick = (e: { selected: number }) => {
     const newOffset = (e.selected * usersPerPage) % filteredUsers.length
 
-    setCurrentPage(newOffset)
+    setCurrentPagination(newOffset)
   }
 
   return (

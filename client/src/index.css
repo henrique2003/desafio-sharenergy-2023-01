@@ -14,6 +14,7 @@ body,
   --white: #ffffff;
   --dark: rgba(0, 0, 0, 0.8);
   --dark-opacity: rgba(0, 0, 0, 0.6);
+  --grey: rgba(0, 0, 0, 0.4);
   --base-input: #e6e6e6;
   --base-title: #48445a;
   --base-text: #9b9aa0;

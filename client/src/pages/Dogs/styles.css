@@ -1,0 +1,93 @@
+.random_dogs {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 50px;
+  padding-bottom: 40px;
+}
+
+.random_dogs header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  border-bottom: 1px solid var(--base-input);
+  padding-bottom: 20px;
+}
+
+.random_dogs header h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 27px;
+  color: var(--base-title);
+  font-weight: 500;
+  text-align: left;
+}
+
+.random_dogs header p {
+  margin: 0;
+  padding: 0;
+  margin-top: 6px;
+  font-size: 15px;
+  color: var(--base-text);
+  text-align: left;
+}
+
+.random_dogs button {
+  border: none;
+  width: 150px;
+  height: 40px;
+  outline: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--white);
+  color: var(--dark-opacity);
+  border: 1px solid var(--grey);
+  text-align: center;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all .2s ease;
+  font-size: 15px;
+  margin-top: 20px;
+}
+
+.random_dogs_image {
+  text-align: center;
+  width: 100%;
+}
+
+.random_dogs_image img {
+  text-align: center;
+  padding: 0;
+  margin: 0 auto;
+  margin-top: 50px;
+  max-width: 500px;
+  width: 100%;
+}
+
+@media(max-width: 1250px) {
+  .random_dogs {
+    padding: 0 30px;
+  }
+}
+
+@media(max-width: 550px) {
+  .random_dogs header {
+    flex-direction: column;
+  }
+
+  .random_dogs header h1 {
+    font-size: 27px;
+    text-align: center;
+  }
+
+  .random_dogs header p {
+    margin-top: 6px;
+    text-align: center;
+  }
+
+  .random_dogs button {
+    margin: 0 auto;
+    margin-top: 20px;
+  }
+}
