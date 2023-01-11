@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt'
 
 import User from '../models/User'
 import generateToken from '../utils/generateToken'
+import { badRequest } from '../helpers/response-status'
 
 class UserController {
   public async login(req: Request, res: Response): Promise<Response> {
@@ -10,21 +11,21 @@ class UserController {
       const { username, password, rememberLogin } = req.body
 
       if (!password.trim()) {
-        return res.status(400).json('Nome de usuário inválido')
+        return badRequest(res, 'Nome de usuário inválido')
       }
 
       if (!username.trim()) {
-        return res.status(400).json('Senha em branco')
+        return badRequest(res, 'Senha em branco')
       }
 
       const user = await User.findOne({ username }).select('+password')
 
       if (!user) {
-        return res.status(400).json('Usuário não encontrado')
+        return badRequest(res, 'Usuário não encontrado')
       }
 
       if (!await bcrypt.compare(password, user.password)) {
-        return res.status(400).json('Senha inválida')
+        return badRequest(res, 'Senha inválida')
       }
       user.password = undefined
 
