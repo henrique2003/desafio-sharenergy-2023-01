@@ -2,9 +2,8 @@ import { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 
 import User from '../models/User'
-import generateToken from '../utils/generateToken'
 import { badRequest } from '../helpers/response-status'
-import validateEmptyField from '../utils/validateEmptyField'
+import { generateToken, validateEmptyField } from '../utils'
 
 class UserController {
   public async login(req: Request, res: Response): Promise<Response> {
