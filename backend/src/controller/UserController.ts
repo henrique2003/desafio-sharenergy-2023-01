@@ -36,6 +36,26 @@ class UserController {
       return res.status(500).json({ error })
     }
   }
+
+  public async loadUser(req: Request, res: Response): Promise<Response> {
+    try {
+      const { userId } = req
+
+      if (!userId) {
+        return res.status(401).json({ error: 'Invalid token' })
+      }
+
+      const user = await User.findById(userId)
+
+      if (!user) {
+        return res.status(401).json({ error: 'Invalid token' })
+      }
+
+      return res.status(200).json({ user })
+    } catch (error) {
+      return res.status(500).json({ error })
+    }
+  }
 }
 
 export default UserController
