@@ -1,6 +1,7 @@
 import { FormEvent, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
+import { toast } from 'react-toastify'
 
 import Checkbox from '../../components/Checkbox'
 import api from '../../services/api'
@@ -21,11 +22,13 @@ const Login: React.FC = () => {
     setLoading(true)
 
     if (!validateEmptyField(username)) {
-      return setLoading(false)
+      setLoading(false)
+      return toast.error('Usuário em branco')
     }
 
     if (!validateEmptyField(password)) {
-      return setLoading(false)
+      setLoading(false)
+      return toast.error('Senha em branco')
     }
 
     try {
@@ -39,7 +42,9 @@ const Login: React.FC = () => {
 
       navigate('/usuarios')
       setLoading(false)
+      toast.success('Logado com sucesso')
     } catch (error) {
+      toast.error('Email ou senha inválido')
       setLoading(false)
     }
   }
