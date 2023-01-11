@@ -7,7 +7,7 @@ const Router: React.FC = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/usuarios" element={<RandomUsers />} />
+        <Route path="/random-users" element={<RandomUsers />} />
         <Route path="/status" element={<StatusCode />} />
         <Route path="/cachorros" element={<Dogs />} />
         <Route path="*" element={<Login />} />

@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
 import { toast } from 'react-toastify'
@@ -15,6 +15,14 @@ const Login: React.FC = () => {
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    const token = JSON.parse(localStorage.getItem('token') as string)
+
+    if (token) {
+      navigate('/random-users')
+    }
+  }, [])
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -40,7 +48,7 @@ const Login: React.FC = () => {
 
       localStorage.setItem('token', JSON.stringify(data.token))
 
-      navigate('/usuarios')
+      navigate('/random-users')
       setLoading(false)
       toast.success('Logado com sucesso')
     } catch (error) {
