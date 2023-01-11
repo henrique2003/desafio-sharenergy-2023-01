@@ -3,6 +3,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 
 import connectDb from './config/db'
+import routes from './routes'
 
 class App {
   public readonly express: express.Application
@@ -17,6 +18,7 @@ class App {
     this.express.use(cors())
     this.express.use(helmet())
     void this.configDb()
+    this.express.use('/api', routes)
   }
 
   async configDb(): Promise<void> {
