@@ -1,0 +1,31 @@
+* {
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+:root {
+  --white: #ffffff;
+  --base-input: #e6e6e6;
+  --base-title: #48445a;
+  --base-text: #9b9aa0;
+  --purple: #837ff8;
+  --purple-hover: #7c79eb;
+}
+
+body,
+::placeholder {
+  font-family: 'Poppins', sans-serif;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+}
