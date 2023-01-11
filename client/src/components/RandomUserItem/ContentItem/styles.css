@@ -1,0 +1,20 @@
+.info_item {
+  margin-top: 15px;
+}
+
+.info_item strong {
+  margin: 0;
+  margin-top: 8px;
+  display: block;
+  color: var(--base-title);
+  font-size: 13px;
+  text-align: left;
+}
+
+.info_item p {
+  margin: 0;
+  margin-top: 4px;
+  color: var(--base-title);
+  font-size: 13px;
+  text-align: left;
+}

@@ -3,11 +3,11 @@ import { useNavigate } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
 import { toast } from 'react-toastify'
 
+import './styles.css'
 import Checkbox from '../../components/Checkbox'
 import api from '../../services/api'
 import validateEmptyField from '../../utils/validateEmptyField'
-import './styles.css'
-import { UserContext } from '../../context/user/index';
+import { UserContext } from '../../context/user'
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('')
