@@ -1,7 +1,9 @@
 import { FormEvent, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
 
 import Checkbox from '../../components/Checkbox'
+import api from '../../services/api'
 import validateEmptyField from '../../utils/validateEmptyField'
 import './styles.css'
 
@@ -10,6 +12,8 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('')
   const [rememberLogin, setRememberLogin] = useState(false)
   const [loading, setLoading] = useState(false)
+
+  const navigate = useNavigate()
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -22,6 +26,21 @@ const Login: React.FC = () => {
 
     if (!validateEmptyField(password)) {
       return setLoading(false)
+    }
+
+    try {
+      const { data } = await api.post('/user/login', {
+        username,
+        password,
+        rememberLogin
+      })
+
+      localStorage.setItem('token', JSON.stringify(data.token))
+
+      navigate('/usuarios')
+      setLoading(false)
+    } catch (error) {
+      setLoading(false)
     }
   }
 
