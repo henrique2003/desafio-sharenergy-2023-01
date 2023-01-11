@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
 import PrivateRoute from './components/PrivateRoute'
 
-import { StatusCode, RandomUsers, Login, Dogs } from './pages'
+import { StatusCode, RandomUsers, Login, Dogs, NotFound } from './pages'
 
 const Router: React.FC = () => {
   return (
@@ -14,7 +14,7 @@ const Router: React.FC = () => {
             <RandomUsers />
           </PrivateRoute>
         } />
-        <Route path="/status" element={
+        <Route path="/status-code" element={
           <PrivateRoute>
             <StatusCode />
           </PrivateRoute>
@@ -24,7 +24,7 @@ const Router: React.FC = () => {
             <Dogs />
           </PrivateRoute>
         } />
-        <Route path="*" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )

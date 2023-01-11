@@ -12,6 +12,7 @@ body,
 
 :root {
   --white: #ffffff;
+  --dark: rgba(0, 0, 0, 0.8);
   --base-input: #e6e6e6;
   --base-title: #48445a;
   --base-text: #9b9aa0;

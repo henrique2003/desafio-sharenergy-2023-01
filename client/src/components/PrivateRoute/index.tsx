@@ -10,15 +10,11 @@ interface IProps {
 
 const PrivateRoute: React.FC<IProps> = ({ children }): React.ReactElement => {
   const navigate = useNavigate()
-  const { login, user } = useContext(UserContext)
+  const { login } = useContext(UserContext)
 
   useEffect(() => {
     async function auth(): Promise<void> {
       try {
-        if (!user._id) {
-          return navigate('/')
-        }
-
         const token = JSON.parse(localStorage.getItem('token') as string)
 
         if (!token) {
