@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 
 import User from '../models/User'
-import { badRequest } from '../helpers/response-status'
+import { badRequest, ok } from '../helpers/response-status'
 import { generateToken, validateEmptyField } from '../utils'
 
 class UserController {
@@ -31,7 +31,7 @@ class UserController {
 
       const token = generateToken(user.id, rememberLogin)
 
-      return res.status(200).json({ user, token })
+      return ok(res, { user, token })
     } catch (error) {
       return res.status(500).json({ error })
     }
@@ -51,7 +51,7 @@ class UserController {
         return res.status(401).json({ error: 'Invalid token' })
       }
 
-      return res.status(200).json({ user })
+      return ok(res, { user })
     } catch (error) {
       return res.status(500).json({ error })
     }
