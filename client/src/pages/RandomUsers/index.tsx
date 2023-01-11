@@ -19,7 +19,7 @@ const Users: React.FC = () => {
 
         setUsers(data.results)
       } catch (error) {
-        console.log(error);
+        console.log(error)
       }
     }
 
@@ -47,22 +47,22 @@ const Users: React.FC = () => {
 
   const filteredUsers = filterUsers()
 
-
-  // Pagination
-  const endOffset = currentPage + 20
-  const currentUsers = filteredUsers.slice(currentPage, endOffset)
-  const pageCount = Math.ceil(filteredUsers.length / 20)
-
-
-  const handlePageClick = (e: { selected: number }) => {
-    const newOffset = (e.selected * 20) % filteredUsers.length
-
-    setCurrentPage(newOffset)
-  }
-
   function onChangeFilter(e: React.ChangeEvent<HTMLInputElement>): void {
     setInputFilter(e.target.value)
     setCurrentPage(0)
+  }
+
+  // Pagination
+  const usersPerPage = 20
+  const endOffset = currentPage + usersPerPage
+  const currentUsers = filteredUsers.slice(currentPage, endOffset)
+  const pageCount = Math.ceil(filteredUsers.length / usersPerPage)
+
+
+  const handlePageClick = (e: { selected: number }) => {
+    const newOffset = (e.selected * usersPerPage) % filteredUsers.length
+
+    setCurrentPage(newOffset)
   }
 
   return (
