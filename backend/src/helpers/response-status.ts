@@ -7,3 +7,7 @@ export function badRequest(res: Response, message: string): Response {
 export function ok(res: Response, data: any): Response {
   return res.status(200).json(data)
 }
+
+export function serverError(res: Response): Response {
+  return res.status(500).json({ error: 'Server Error' })
+}

@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 
 import User from '../models/User'
-import { badRequest, ok } from '../helpers/response-status'
+import { badRequest, ok, serverError } from '../helpers/response-status'
 import { generateToken, validateEmptyField } from '../utils'
 
 class UserController {
@@ -33,7 +33,7 @@ class UserController {
 
       return ok(res, { user, token })
     } catch (error) {
-      return res.status(500).json({ error })
+      return serverError(res)
     }
   }
 
@@ -53,7 +53,7 @@ class UserController {
 
       return ok(res, { user })
     } catch (error) {
-      return res.status(500).json({ error })
+      return serverError(res)
     }
   }
 }
