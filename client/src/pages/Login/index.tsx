@@ -2,6 +2,7 @@ import { FormEvent, useState } from 'react'
 import { ClipLoader } from 'react-spinners'
 
 import Checkbox from '../../components/Checkbox'
+import validateEmptyField from '../../utils/validateEmptyField'
 import './styles.css'
 
 const Login: React.FC = () => {
@@ -15,11 +16,11 @@ const Login: React.FC = () => {
 
     setLoading(true)
 
-    if (!username.trim()) {
+    if (!validateEmptyField(username)) {
       return setLoading(false)
     }
 
-    if (!password.trim()) {
+    if (!validateEmptyField(password)) {
       return setLoading(false)
     }
   }
