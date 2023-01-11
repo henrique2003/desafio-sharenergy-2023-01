@@ -1,25 +1,25 @@
-.users {
+.random_users {
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   margin-top: 50px;
 }
 
-.users header {
+.random_users header {
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid var(--base-input);
   margin-bottom: 20px;
 }
 
-.users header svg {
+.random_users header svg {
   color: var(--base-text);
   font-size: 20px;
   margin-left: -30px;
   margin-bottom: -5px;
 }
 
-.users h1 {
+.random_users h1 {
   margin: 0;
   padding: 0;
   margin-top: 15px;
@@ -28,7 +28,7 @@
   font-weight: 500;
 }
 
-.users input {
+.random_users input {
   outline: none;
   width: 100%;
   margin-top: 15px;
@@ -43,18 +43,18 @@
   padding-right: 10px;
 }
 
-.users .logout {
+.random_users .logout {
   border: none;
   background: transparent;
   color: var(--base-text);
 }
 
-.users .list {
+.random_users .list {
   margin-top: 40px;
   width: 100%;
 }
 
-.users .list {
+.random_users .list {
   margin-top: 40px;
   width: 100%;
   display: grid;
@@ -63,13 +63,76 @@
   padding-bottom: 40px;
 }
 
-.users .filter_not_found {
+.random_users .filter_not_found {
   width: 100%;
   text-align: center;
   color: var(--base-title);
   margin-top: 200px;
 }
 
+.pagination {
+  position: relative;
+  list-style: none;
+  text-align: center;
+  padding: 0;
+  padding-bottom: 50px;
+}
+
+.pagination li {
+  display: inline-block;
+  padding: 0 10px;
+  color: var(--base-title);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.pagination .next,
+.pagination .previous {
+  position: absolute;
+  top: 1px;
+  margin-left: -17px;
+}
+
+.pagination .next {
+  margin-left: -3px;
+}
+
+.pagination .disabled {
+  color: var(--base-text);
+}
+
 .filter_not_found {
   text-align: center;
+}
+
+@media(max-width: 1250px) {
+  .random_users {
+    padding: 0 30px;
+  }
+}
+
+@media(max-width: 1050px) {
+  .random_users {
+    max-width: 650px;
+  }
+
+  .random_users .list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media(max-width: 650px) {
+  .random_users .list {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media(max-width: 480px) {
+  .random_users {
+    padding: 0 20px;
+  }
+
+  .random_users h1 {
+    font-size: 25px;
+  }
 }

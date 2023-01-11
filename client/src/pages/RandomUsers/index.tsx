@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 import { BiSearchAlt2 } from 'react-icons/bi'
+import { BsArrowLeft, BsArrowRight } from 'react-icons/bs'
+import ReactPaginate from 'react-paginate'
 import axios from 'axios'
 
 import UserItem, { IRamdomUser } from '../../components/RandomUserItem'
@@ -7,10 +9,11 @@ import './styles.css'
 
 const Users: React.FC = () => {
   const [users, setUsers] = useState<IRamdomUser[]>([])
+  const [currentPage, setCurrentPage] = useState(0)
   const [inputFilter, setInputFilter] = useState('')
 
   useEffect(() => {
-    async function loadRadomUsers(): Promise<void> {
+    async function loadRadomusers(): Promise<void> {
       try {
         const { data } = await axios.get('https://randomuser.me/api/?results=100')
 
@@ -20,7 +23,7 @@ const Users: React.FC = () => {
       }
     }
 
-    loadRadomUsers()
+    loadRadomusers()
   }, [])
 
   function filterUsers(): IRamdomUser[] {
@@ -44,14 +47,28 @@ const Users: React.FC = () => {
 
   const filteredUsers = filterUsers()
 
+
+  // Pagination
+  const endOffset = currentPage + 20
+  const currentUsers = filteredUsers.slice(currentPage, endOffset)
+  const pageCount = Math.ceil(filteredUsers.length / 20)
+
+
+  const handlePageClick = (e: { selected: number }) => {
+    const newOffset = (e.selected * 20) % filteredUsers.length
+
+    setCurrentPage(newOffset)
+  }
+
   function onChangeFilter(e: React.ChangeEvent<HTMLInputElement>): void {
     setInputFilter(e.target.value)
+    setCurrentPage(0)
   }
 
   return (
-    <div className='users'>
+    <div className='random_users'>
       <header>
-        <h1>Usuários encontrados: {users.length}</h1>
+        <h1>Usuários encontrados: {filteredUsers.length}</h1>
         <div>
           <input
             placeholder='Filtro'
@@ -62,11 +79,28 @@ const Users: React.FC = () => {
         </div>
       </header>
       <section className="list">
-        {filteredUsers.length > 0 && (
-          filteredUsers.map((item, i) => (
+        {currentUsers.length > 0 && (
+          currentUsers.map((item, i) => (
             <UserItem key={i} ramdomUser={item} />
           )))}
       </section>
+      {currentUsers.length <= 0 ? (
+        <p className='filter_not_found'>Nehum resultado para "{inputFilter}"</p>
+      ) : (
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel={<BsArrowRight />}
+          pageRangeDisplayed={4}
+          pageCount={pageCount}
+          onPageChange={handlePageClick}
+          previousLabel={<BsArrowLeft />}
+          containerClassName={"pagination"}
+          disabledClassName={"pagination disabled"}
+          previousLinkClassName={"previous"}
+          nextLinkClassName={"next"}
+          onClick={() => window.scrollTo(0, 0)}
+        />
+      )}
     </div>
   )
 }
