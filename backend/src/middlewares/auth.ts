@@ -2,11 +2,13 @@ import 'dotenv/config'
 import { NextFunction, Request, Response } from 'express'
 import { verify } from 'jsonwebtoken'
 
+import { unauthorized } from '../helpers/response-status'
+
 export function auth(req: Request, res: Response, next: NextFunction): Response {
   const authToken = req.header('authorization')
 
   if (!authToken) {
-    return res.status(401).json({ error: 'Invalid token' })
+    return unauthorized(res)
   }
 
   try {
@@ -18,6 +20,6 @@ export function auth(req: Request, res: Response, next: NextFunction): Response 
 
     next()
   } catch (error) {
-    return res.status(401).json({ error: 'Invalid token' })
+    return unauthorized(res)
   }
 }

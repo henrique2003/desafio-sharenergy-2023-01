@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
 
 import User from '../models/User'
-import { badRequest, ok, serverError } from '../helpers/response-status'
+import { badRequest, ok, serverError, unauthorized } from '../helpers/response-status'
 import { generateToken, validateEmptyField } from '../utils'
 
 class UserController {
@@ -42,13 +42,13 @@ class UserController {
       const { userId } = req
 
       if (!userId) {
-        return res.status(401).json({ error: 'Invalid token' })
+        return unauthorized(res)
       }
 
       const user = await User.findById(userId)
 
       if (!user) {
-        return res.status(401).json({ error: 'Invalid token' })
+        return unauthorized(res)
       }
 
       return ok(res, { user })

@@ -11,3 +11,7 @@ export function ok(res: Response, data: any): Response {
 export function serverError(res: Response): Response {
   return res.status(500).json({ error: 'Server Error' })
 }
+
+export function unauthorized(res: Response): Response {
+  return res.status(401).json({ message: 'Não autorizado' })
+}
