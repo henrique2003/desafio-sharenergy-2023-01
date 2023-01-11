@@ -4,17 +4,18 @@ import bcrypt from 'bcrypt'
 import User from '../models/User'
 import generateToken from '../utils/generateToken'
 import { badRequest } from '../helpers/response-status'
+import validateEmptyField from '../utils/validateEmptyField'
 
 class UserController {
   public async login(req: Request, res: Response): Promise<Response> {
     try {
       const { username, password, rememberLogin } = req.body
 
-      if (!password.trim()) {
+      if (!validateEmptyField(password)) {
         return badRequest(res, 'Nome de usuário inválido')
       }
 
-      if (!username.trim()) {
+      if (!validateEmptyField(username)) {
         return badRequest(res, 'Senha em branco')
       }
 
