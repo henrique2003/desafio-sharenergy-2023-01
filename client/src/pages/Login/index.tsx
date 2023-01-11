@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
 import { toast } from 'react-toastify'
@@ -7,6 +7,7 @@ import Checkbox from '../../components/Checkbox'
 import api from '../../services/api'
 import validateEmptyField from '../../utils/validateEmptyField'
 import './styles.css'
+import { UserContext } from '../../context/user/index';
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('')
@@ -15,6 +16,7 @@ const Login: React.FC = () => {
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
+  const { login } = useContext(UserContext)
 
   useEffect(() => {
     const token = JSON.parse(localStorage.getItem('token') as string)
@@ -48,7 +50,9 @@ const Login: React.FC = () => {
 
       localStorage.setItem('token', JSON.stringify(data.token))
 
-      navigate('/random-users')
+      login(data.user)
+      navigate('/usuarios')
+
       setLoading(false)
       toast.success('Logado com sucesso')
     } catch (error) {
