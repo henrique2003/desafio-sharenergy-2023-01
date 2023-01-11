@@ -71,7 +71,7 @@ const Users: React.FC = () => {
         <h1>Usuários encontrados: {filteredUsers.length}</h1>
         <div>
           <input
-            placeholder='Filtro'
+            placeholder='Procurar'
             type="text"
             onChange={onChangeFilter}
           />

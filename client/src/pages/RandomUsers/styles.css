@@ -43,12 +43,6 @@
   padding-right: 10px;
 }
 
-.random_users .logout {
-  border: none;
-  background: transparent;
-  color: var(--base-text);
-}
-
 .random_users .list {
   margin-top: 40px;
   width: 100%;
@@ -119,11 +113,37 @@
   .random_users .list {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .random_users h1 {
+    font-size: 26px;
+    margin-top: 19px;
+  }
 }
 
 @media(max-width: 650px) {
   .random_users .list {
     grid-template-columns: repeat(1, 1fr);
+  }
+
+  .random_users header {
+    display: flex;
+    flex-direction: column;
+    border-bottom: none;
+    margin-bottom: 0;
+  }
+
+  .random_users h1 {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+
+  .random_users .list {
+    margin-top: 0;
+  }
+
+  .random_users h1 {
+    font-size: 26px;
+    margin-top: 17px;
   }
 }
 
@@ -132,7 +152,20 @@
     padding: 0 20px;
   }
 
-  .random_users h1 {
-    font-size: 25px;
+  .random_users header h1 {
+    font-size: 22px;
+  }
+
+  .random_users header {
+    align-items: center;
+  }
+
+  .random_users header div {
+    max-width: 300px;
+    width: 100%;
+  }
+
+  .random_users header div input {
+    width: 100%;
   }
 }

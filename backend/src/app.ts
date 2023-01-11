@@ -2,8 +2,8 @@ import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
 
-import connectDb from './config/db'
-import routes from './routes'
+import connectDb from './app/config/db'
+import routes from './app/routes'
 
 class App {
   public readonly express: express.Application

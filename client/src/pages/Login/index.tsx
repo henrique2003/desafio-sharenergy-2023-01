@@ -51,7 +51,7 @@ const Login: React.FC = () => {
       localStorage.setItem('token', JSON.stringify(data.token))
 
       login(data.user)
-      navigate('/usuarios')
+      navigate('/random-users')
 
       setLoading(false)
       toast.success('Logado com sucesso')
