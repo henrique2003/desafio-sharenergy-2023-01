@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { ClipLoader } from 'react-spinners'
 
-import './styles.css'
 import Checkbox from '../../components/Checkbox'
+import './styles.css'
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('')
@@ -10,10 +10,24 @@ const Login: React.FC = () => {
   const [rememberLogin, setRememberLogin] = useState(false)
   const [loading, setLoading] = useState(false)
 
+  async function onSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+
+    setLoading(true)
+
+    if (!username.trim()) {
+      return setLoading(false)
+    }
+
+    if (!password.trim()) {
+      return setLoading(false)
+    }
+  }
+
   return (
     <div className="login">
       <h1>Login</h1>
-      <form>
+      <form onSubmit={e => onSubmit(e)}>
         <input
           type="text"
           placeholder="Nome de usuário"
