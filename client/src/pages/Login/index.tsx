@@ -1,5 +1,50 @@
+import { useState } from 'react'
+import { ClipLoader } from 'react-spinners'
+
+import './styles.css'
+import Checkbox from '../../components/Checkbox'
+
 const Login: React.FC = () => {
-  return <div />
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [rememberLogin, setRememberLogin] = useState(false)
+  const [loading, setLoading] = useState(false)
+
+  return (
+    <div className="login">
+      <h1>Login</h1>
+      <form>
+        <input
+          type="text"
+          placeholder="Nome de usuário"
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Senha"
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Checkbox
+          active={rememberLogin}
+          onClick={() => setRememberLogin(!rememberLogin)}
+        />
+        <button type="submit" disabled={loading}>
+          {loading ? (
+            <ClipLoader
+              loading
+              color="white"
+              size={18}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+              className='loading'
+            />
+          ) : (
+            <span>Login</span>
+          )}
+        </button>
+      </form>
+    </div>
+  )
 }
 
 export default Login

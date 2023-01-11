@@ -1,0 +1,50 @@
+.checkbox {
+  display: flex;
+  border: none;
+  outline: none;
+  padding: 0;
+  gap: 10px;
+  margin: 0;
+  margin-top: 15px;
+  width: 100%;
+  border: none;
+  outline: none;
+  background-color: transparent;
+}
+
+.checkbox .box {
+  margin: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 2px;
+  background-color: var(--base-input);
+  border: 1px solid var(--base-input);
+  transition: all .2s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox svg {
+  display: none;
+  font-size: 20px;
+  color: var(--purple);
+}
+
+.checkbox p {
+  font-size: 14px;
+  color: var(--base-text);
+  margin: 0;
+  line-height: 20px;
+}
+
+.active svg {
+  display: block;
+}
+
+.active .box {
+  background-color: var(--white);
+  border: 1px solid var(--purple);
+  transition: all .2s ease;
+}
