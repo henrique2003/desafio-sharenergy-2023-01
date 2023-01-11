@@ -19,11 +19,26 @@ const Login: React.FC = () => {
   const { login } = useContext(UserContext)
 
   useEffect(() => {
-    const token = JSON.parse(localStorage.getItem('token') as string)
+    async function auth(): Promise<void> {
+      try {
+        const token = JSON.parse(localStorage.getItem('token') as string)
 
-    if (token) {
-      navigate('/random-users')
+        if (!token) return
+
+        const { data } = await api.get('/user', {
+          headers: {
+            authorization: `Bearer ${token}`
+          }
+        })
+
+        login(data.user)
+        navigate('/random-users')
+      } catch (error) {
+        return
+      }
     }
+
+    auth()
   }, [])
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
