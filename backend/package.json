@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "start": "npm run ./src/server.ts",
+    "dev": "ts-node-dev ./src/server.ts",
+    "build": "yarn tsc"
+  },
   "dependencies": {
     "express": "^4.18.2"
   },
@@ -11,8 +15,6 @@
     "@types/express": "^4.17.15",
     "@types/node": "^18.11.18",
     "git-commit-msg-linter": "^4.5.0",
-    "ts-node": "^10.9.1",
-    "ts-node-dev": "^2.0.0",
     "typescript": "^4.9.4"
   }
 }
