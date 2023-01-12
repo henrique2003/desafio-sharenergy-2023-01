@@ -7,6 +7,7 @@ module.exports = {
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/space-before-blocks': 'off',
     '@typescript-eslint/no-misused-promises': 'off',
-    '@typescript-eslint/space-before-function-paren': 'off'
+    '@typescript-eslint/space-before-function-paren': 'off',
+    'array-callback-return': 'off'
   }
 }
