@@ -1,10 +1,10 @@
 import { Request, Response } from 'express'
-import validator from 'validator'
 
 import Client from '../models/Client'
 import { badRequest, ok, serverError } from '../helpers/response-status'
 import { invalidFieldMsg } from '../helpers/response-message'
 import { validateCpf, validateEmptyField } from '../utils'
+import validateEmail from '../utils/validateEmail'
 
 class ClientController {
   public async getAll(req: Request, res: Response): Promise<Response> {
@@ -25,7 +25,7 @@ class ClientController {
         return badRequest(res, invalidFieldMsg('nome'))
       }
 
-      if (!validateEmptyField(email) || !validator.isEmail(email)) {
+      if (!validateEmail(email)) {
         return badRequest(res, invalidFieldMsg('email'))
       }
 
@@ -68,7 +68,7 @@ class ClientController {
       const lastClient = await Client.findById(id)
 
       if (validateEmptyField(name)) lastClient.name = name
-      if (validateEmptyField(email) && validator.isEmail(email)) lastClient.email = email
+      if (validateEmail(email)) lastClient.email = email
       if (validateEmptyField(address)) lastClient.address = address
       if (phone && phone.toString().length === 8) lastClient.phone = phone
       if (validateCpf(cpf)) lastClient.cpf = cpf
