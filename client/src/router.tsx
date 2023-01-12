@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import PrivateRoute from './components/PrivateRoute'
 
 import { StatusCode, RandomUsers, Login, Dogs, NotFound } from './pages'
+import Clients from './pages/Clients/index';
 
 const Router: React.FC = () => {
   return (
@@ -22,6 +23,11 @@ const Router: React.FC = () => {
         <Route path="/cachorros" element={
           <PrivateRoute>
             <Dogs />
+          </PrivateRoute>
+        } />
+        <Route path="/clientes" element={
+          <PrivateRoute>
+            <Clients />
           </PrivateRoute>
         } />
         <Route path="*" element={<NotFound />} />
