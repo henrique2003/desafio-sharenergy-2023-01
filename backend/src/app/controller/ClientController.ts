@@ -62,7 +62,7 @@ class ClientController {
       const { name, email, phone, address, cpf } = body
 
       if (!await Client.findById(id)) {
-        return badRequest(res, 'Cliente não existe')
+        return badRequest(res, 'Cliente não encotrado')
       }
 
       const client = await Client.findById(id)
@@ -78,6 +78,28 @@ class ClientController {
 
       return ok(res, { client: newClient })
     } catch (error) {
+      return serverError(res)
+    }
+  }
+
+  public async delete(req: Request, res: Response): Promise<Response> {
+    try {
+      const { id } = req.params
+
+      if (!id) {
+        return badRequest(res, 'Necessário id do client')
+      }
+
+      if (!await Client.findById(id)) {
+        return badRequest(res, 'Cliente não encotrado')
+      }
+
+      await Client.findByIdAndDelete(id)
+
+      return res.status(204).json()
+    } catch (error) {
+      console.log(error)
+
       return serverError(res)
     }
   }
