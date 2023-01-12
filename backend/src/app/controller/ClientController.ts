@@ -65,18 +65,18 @@ class ClientController {
         return badRequest(res, 'Cliente não existe')
       }
 
-      const lastClient = await Client.findById(id)
-
-      if (validateEmptyField(name)) lastClient.name = name
-      if (validateEmail(email)) lastClient.email = email
-      if (validateEmptyField(address)) lastClient.address = address
-      if (isEqualLength(phone, 8)) lastClient.phone = phone
-      if (validateCpf(cpf)) lastClient.cpf = cpf
-
-      await lastClient.save()
       const client = await Client.findById(id)
 
-      return ok(res, { client })
+      if (validateEmptyField(name)) client.name = name
+      if (validateEmail(email)) client.email = email
+      if (validateEmptyField(address)) client.address = address
+      if (isEqualLength(phone, 8)) client.phone = phone
+      if (validateCpf(cpf)) client.cpf = cpf
+
+      await client.save()
+      const newClient = await Client.findById(id)
+
+      return ok(res, { client: newClient })
     } catch (error) {
       return serverError(res)
     }
