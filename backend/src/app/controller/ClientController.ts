@@ -98,8 +98,6 @@ class ClientController {
 
       return res.status(204).json()
     } catch (error) {
-      console.log(error)
-
       return serverError(res)
     }
   }
