@@ -14,7 +14,7 @@ routes.post('/user/login', user.login)
 routes.get('/user', auth, user.loadUser)
 
 // Client
-// routes.get('/client', auth, client.getAll)
+routes.get('/client', auth, client.getAll)
 routes.post('/client/create', auth, client.create)
 
 export default routes

@@ -7,15 +7,15 @@ import { invalidFieldMsg } from '../helpers/response-message'
 import { validateCpf, validateEmptyField } from '../utils'
 
 class ClientController {
-  // public async getAll(req: Request, res: Response): Promise<Response> {
-  //   try {
-  //     const client = await Client.find()
+  public async getAll(req: Request, res: Response): Promise<Response> {
+    try {
+      const client = await Client.find()
 
-  //     return ok(res, { client })
-  //   } catch (error) {
-  //     return serverError(res)
-  //   }
-  // }
+      return ok(res, { client })
+    } catch (error) {
+      return serverError(res)
+    }
+  }
 
   public async create(req: Request, res: Response): Promise<Response> {
     try {
@@ -51,8 +51,6 @@ class ClientController {
 
       return ok(res, { client })
     } catch (error) {
-      console.log(error)
-
       return serverError(res)
     }
   }
