@@ -1,4 +1,14 @@
-function validateCpf(cpf: string): boolean {
+function validateCpf(cpfNum: number): boolean {
+  if (!cpfNum) {
+    return false
+  }
+
+  const cpf = cpfNum.toString()
+
+  if (cpf.length !== 11) {
+    return false
+  }
+
   let sum = 0
   let rest = 0
   sum = 0

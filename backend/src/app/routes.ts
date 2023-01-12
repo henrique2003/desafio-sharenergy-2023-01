@@ -16,5 +16,6 @@ routes.get('/user', auth, user.loadUser)
 // Client
 routes.get('/client', auth, client.getAll)
 routes.post('/client/create', auth, client.create)
+routes.put('/client/:id', auth, client.update)
 
 export default routes

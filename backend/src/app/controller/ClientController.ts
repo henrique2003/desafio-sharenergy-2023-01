@@ -54,6 +54,33 @@ class ClientController {
       return serverError(res)
     }
   }
+
+  public async update(req: Request, res: Response): Promise<Response> {
+    try {
+      const { params, body } = req
+      const { id } = params
+      const { name, email, phone, address, cpf } = body
+
+      if (!await Client.findById(id)) {
+        return badRequest(res, 'Cliente não existe')
+      }
+
+      const lastClient = await Client.findById(id)
+
+      if (validateEmptyField(name)) lastClient.name = name
+      if (validateEmptyField(email) && validator.isEmail(email)) lastClient.email = email
+      if (validateEmptyField(address)) lastClient.address = address
+      if (phone && phone.toString().length === 8) lastClient.phone = phone
+      if (validateCpf(cpf)) lastClient.cpf = cpf
+
+      await lastClient.save()
+      const client = await Client.findById(id)
+
+      return ok(res, { client })
+    } catch (error) {
+      return serverError(res)
+    }
+  }
 }
 
 export default ClientController
