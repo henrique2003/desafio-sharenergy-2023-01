@@ -10,7 +10,7 @@
   justify-content: space-between;
   width: 100%;
   border-bottom: 1px solid var(--base-input);
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .status_code .select_code {
@@ -20,13 +20,8 @@
 }
 
 .status_code header h1 {
-  margin: 0;
-  padding: 0;
   margin-top: 20px;
   font-size: 27px;
-  color: var(--base-title);
-  font-weight: 500;
-  text-align: left;
 }
 
 .status_code_image {
