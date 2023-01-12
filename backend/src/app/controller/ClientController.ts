@@ -3,7 +3,7 @@ import { Request, Response } from 'express'
 import Client from '../models/Client'
 import { badRequest, ok, serverError } from '../helpers/response-status'
 import { invalidFieldMsg } from '../helpers/response-message'
-import { validateCpf, validateEmptyField } from '../utils'
+import { isEqualLength, validateCpf, validateEmptyField } from '../utils'
 import validateEmail from '../utils/validateEmail'
 
 class ClientController {
@@ -33,7 +33,7 @@ class ClientController {
         return badRequest(res, invalidFieldMsg('endereço'))
       }
 
-      if (phone.toString().length !== 8) {
+      if (!isEqualLength(phone, 8)) {
         return badRequest(res, invalidFieldMsg('telefone'))
       }
 
@@ -70,7 +70,7 @@ class ClientController {
       if (validateEmptyField(name)) lastClient.name = name
       if (validateEmail(email)) lastClient.email = email
       if (validateEmptyField(address)) lastClient.address = address
-      if (phone && phone.toString().length === 8) lastClient.phone = phone
+      if (isEqualLength(phone, 8)) lastClient.phone = phone
       if (validateCpf(cpf)) lastClient.cpf = cpf
 
       await lastClient.save()
