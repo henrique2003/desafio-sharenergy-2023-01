@@ -37,7 +37,7 @@ class ClientController {
         return badRequest(res, invalidFieldMsg('telefone'))
       }
 
-      if (cpf.toString().length !== 11 || !validateCpf(cpf.toString())) {
+      if (!validateCpf(cpf)) {
         return badRequest(res, invalidFieldMsg('cpf'))
       }
 
