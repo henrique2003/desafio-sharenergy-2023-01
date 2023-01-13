@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect, FormEvent } from 'react'
 import { BiPlus } from 'react-icons/bi'
 
 import './styles.css'
@@ -7,8 +7,9 @@ import { IClient } from '../../components/ShortClientItem/index'
 import { Id, toast } from 'react-toastify'
 import api from '../../services/api'
 import setAuthorization from '../../utils/setAuthorization'
-import { isEqualLength, validateCpf, validateEmail, validateEmptyField } from '../../utils';
-import { emptyField, invalidField } from '../../helpers/error-messages';
+import { isEqualLength, validateCpf, validateEmail, validateEmptyField } from '../../utils'
+import { emptyField, invalidField } from '../../helpers/error-messages'
+import { maskPhone } from '../../utils/maskers'
 
 export type IAction = 'create' | 'edit' | 'show'
 
@@ -64,7 +65,7 @@ const Clients: React.FC = () => {
         return toast.error(invalidField('Email'))
       }
 
-      if (!isEqualLength(phone, 11)) {
+      if (!isEqualLength(phone, 10)) {
         return toast.error(invalidField('Telefone'))
       }
 
@@ -160,9 +161,9 @@ const Clients: React.FC = () => {
               <input
                 id="phone"
                 type="text"
-                placeholder='Ex: (11)959426382'
-                value={phone}
-                onChange={e => setPhone(e.target.value)}
+                placeholder='Ex: (11) 95942-6382'
+                value={maskPhone(phone)}
+                onChange={e => setPhone(maskPhone(e.target.value).replace(/\D/g, ''))}
               />
             </div>
             <div className="client_group">
