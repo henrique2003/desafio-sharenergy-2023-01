@@ -9,9 +9,9 @@ import validateEmail from '../utils/validateEmail'
 class ClientController {
   public async getAll(req: Request, res: Response): Promise<Response> {
     try {
-      const client = await Client.find()
+      const clients = await Client.find()
 
-      return ok(res, { client })
+      return ok(res, { clients })
     } catch (error) {
       return serverError(res)
     }
