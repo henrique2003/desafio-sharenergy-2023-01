@@ -47,13 +47,13 @@ const Clients: React.FC = () => {
 
       setClients(clients.filter(client => client._id !== id))
 
-      toast.success('Client deletado com sucesso')
+      toast.success('Cliente deletado com sucesso')
     } catch (error) {
       toast.error('Erro ao deletar cliente')
     }
   }
 
-  async function onSubmit(e: FormEvent): Promise<void | Id> {
+  async function create(e: FormEvent): Promise<void | Id> {
     try {
       e.preventDefault()
 
@@ -134,7 +134,7 @@ const Clients: React.FC = () => {
         </div>
       )}
       {action === 'create' && (
-        <form className="clients_create_form" onSubmit={e => onSubmit(e)}>
+        <form className="clients_create_form" onSubmit={e => create(e)}>
           <div className="row">
             <div className="client_group">
               <label htmlFor="name">Nome:</label>
