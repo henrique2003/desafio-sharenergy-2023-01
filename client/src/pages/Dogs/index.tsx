@@ -61,10 +61,7 @@ const Dogs: React.FC = () => {
           />
         ) : (
           <div className="bg_image" style={{
-            background: `url("${currentDogUrl}")`,
-            backgroundRepeat: 'no-repeat',
-            backgroundPosition: 'center',
-            backgroundSize: 'cover'
+            background: `url("${currentDogUrl}")`
           }}></div>
         )}
       </div>
