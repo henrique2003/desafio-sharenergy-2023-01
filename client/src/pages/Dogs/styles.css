@@ -95,3 +95,15 @@
     margin-top: 20px;
   }
 }
+
+@media(max-width: 450px) {
+  .random_dogs .random_dogs_image .bg_image {
+    height: 250px;
+  }
+}
+
+@media(max-width: 350px) {
+  .random_dogs .random_dogs_image .bg_image {
+    height: 200px;
+  }
+}
