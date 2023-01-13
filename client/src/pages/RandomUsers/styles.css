@@ -6,10 +6,8 @@
 }
 
 .random_users header {
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px solid var(--base-input);
-  margin-bottom: 20px;
+  margin-top: 50px;
+  padding-bottom: 0;
 }
 
 .random_users header svg {

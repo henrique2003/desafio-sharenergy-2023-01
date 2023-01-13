@@ -5,14 +5,6 @@
   margin-top: 50px;
 }
 
-.status_code header {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  border-bottom: 1px solid var(--base-input);
-  padding-bottom: 10px;
-}
-
 .status_code .select_code {
   max-width: 300px;
   width: 100%;
