@@ -9,7 +9,7 @@ import api from '../../services/api'
 import setAuthorization from '../../utils/setAuthorization'
 import { isEqualLength, validateCpf, validateEmail, validateEmptyField } from '../../utils'
 import { emptyField, invalidField } from '../../helpers/error-messages'
-import { maskPhone } from '../../utils/maskers'
+import { maskPhone, maskCpf } from '../../utils/maskers';
 
 export type IAction = 'create' | 'edit' | 'show'
 
@@ -172,8 +172,9 @@ const Clients: React.FC = () => {
                 id="cpf"
                 type="text"
                 placeholder='Ex: 516.615.318-90'
-                value={cpf}
-                onChange={e => setCpf(e.target.value)}
+                value={maskCpf(cpf)}
+                onChange={e => setCpf(maskCpf(e.target.value).replace(/\D/g, ''))}
+                maxLength={14}
               />
             </div>
             <div className="client_group">
