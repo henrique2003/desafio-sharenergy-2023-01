@@ -33,7 +33,7 @@ class ClientController {
         return badRequest(res, invalidFieldMsg('endereço'))
       }
 
-      if (!isEqualLength(phone, 11)) {
+      if (!isEqualLength(phone, 10)) {
         return badRequest(res, invalidFieldMsg('telefone'))
       }
 
@@ -70,7 +70,7 @@ class ClientController {
       if (validateEmptyField(name)) client.name = name
       if (validateEmail(email)) client.email = email
       if (validateEmptyField(address)) client.address = address
-      if (isEqualLength(phone, 8)) client.phone = phone
+      if (isEqualLength(phone, 10)) client.phone = phone
       if (validateCpf(cpf)) client.cpf = cpf
 
       await client.save()
