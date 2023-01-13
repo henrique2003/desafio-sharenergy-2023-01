@@ -33,7 +33,7 @@ class ClientController {
         return badRequest(res, invalidFieldMsg('endereço'))
       }
 
-      if (!isEqualLength(phone, 8)) {
+      if (!isEqualLength(phone, 11)) {
         return badRequest(res, invalidFieldMsg('telefone'))
       }
 
