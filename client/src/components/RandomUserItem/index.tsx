@@ -25,7 +25,7 @@ interface IProps {
   ramdomUser: IRamdomUser
 }
 
-const UserItem: React.FC<IProps> = ({ ramdomUser }) => {
+const RandomUserItem: React.FC<IProps> = ({ ramdomUser }) => {
   const { picture, name, dob, email, login: { username } } = ramdomUser
 
   return (
@@ -60,4 +60,4 @@ const UserItem: React.FC<IProps> = ({ ramdomUser }) => {
   )
 }
 
-export default UserItem
+export default RandomUserItem

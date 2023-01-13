@@ -44,18 +44,29 @@
   margin-top: 20px;
 }
 
-.random_dogs_image {
+.random_dogs .random_dogs_image {
   text-align: center;
   width: 100%;
 }
 
-.random_dogs_image img {
+.random_dogs .random_dogs_image .bg_image {
   text-align: center;
   padding: 0;
   margin: 0 auto;
   margin-top: 50px;
-  max-width: 500px;
+  height: 350px;
+  max-width: 450px;
   width: 100%;
+}
+
+.random_dogs .random_dogs_image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.random_dogs .random_dogs_image .loading {
+  margin-top: 190px;
 }
 
 @media(max-width: 1250px) {

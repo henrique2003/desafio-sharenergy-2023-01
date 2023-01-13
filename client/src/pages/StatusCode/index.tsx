@@ -7,14 +7,6 @@ import status_code_options from '../../mocks/status-code'
 const RandomUsers: React.FC = () => {
   const [currentStatusCode, setCurrentStatusCode] = useState(0)
 
-  async function handleClickButton(statusCode: number): Promise<void> {
-    if (currentStatusCode === statusCode) {
-      return setCurrentStatusCode(0)
-    }
-
-    setCurrentStatusCode(statusCode)
-  }
-
   return (
     <div className="status_code">
       <header>

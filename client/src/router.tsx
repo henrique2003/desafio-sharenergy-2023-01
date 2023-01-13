@@ -1,9 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 
-import PrivateRoute from './components/PrivateRoute'
-
+import { Navigation, PrivateRoute } from './components'
 import { StatusCode, RandomUsers, Login, Dogs, NotFound } from './pages'
-import Clients from './pages/Clients/index';
+import Clients from './pages/Clients'
 
 const Router: React.FC = () => {
   return (
@@ -12,22 +11,78 @@ const Router: React.FC = () => {
         <Route path="/" element={<Login />} />
         <Route path="/random-users" element={
           <PrivateRoute>
-            <RandomUsers />
+            <>
+              <Navigation
+                link={{
+                  before: {
+                    display: false,
+                    to: ''
+                  },
+                  after: {
+                    display: true,
+                    to: '/status-code'
+                  }
+                }}
+              />
+              <RandomUsers />
+            </>
           </PrivateRoute>
         } />
         <Route path="/status-code" element={
           <PrivateRoute>
-            <StatusCode />
+            <>
+              <Navigation
+                link={{
+                  before: {
+                    display: true,
+                    to: '/random-users'
+                  },
+                  after: {
+                    display: true,
+                    to: '/cachorros'
+                  }
+                }}
+              />
+              <StatusCode />
+            </>
           </PrivateRoute>
         } />
         <Route path="/cachorros" element={
           <PrivateRoute>
-            <Dogs />
+            <>
+              <Navigation
+                link={{
+                  before: {
+                    display: true,
+                    to: '/status-code'
+                  },
+                  after: {
+                    display: true,
+                    to: '/clientes'
+                  }
+                }}
+              />
+              <Dogs />
+            </>
           </PrivateRoute>
         } />
         <Route path="/clientes" element={
           <PrivateRoute>
-            <Clients />
+            <>
+              <Navigation
+                link={{
+                  before: {
+                    display: true,
+                    to: '/cachorros'
+                  },
+                  after: {
+                    display: false,
+                    to: ''
+                  }
+                }}
+              />
+              <Clients />
+            </>
           </PrivateRoute>
         } />
         <Route path="*" element={<NotFound />} />

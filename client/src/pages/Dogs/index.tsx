@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react';
-import { BeatLoader } from 'react-spinners';
+import { BeatLoader, PuffLoader } from 'react-spinners';
 import { toast } from 'react-toastify'
 
 import './styles.css'
@@ -50,7 +50,23 @@ const Dogs: React.FC = () => {
         </button>
       </header>
       <div className="random_dogs_image">
-        <img src={currentDogUrl} alt="Imagem aleatória de cachorro" />
+        {loading ? (
+          <PuffLoader
+            loading
+            color="rgba(0,0,0,0.6)"
+            size={40}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+            className='loading'
+          />
+        ) : (
+          <div className="bg_image" style={{
+            background: `url("${currentDogUrl}")`,
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+            backgroundSize: 'cover'
+          }}></div>
+        )}
       </div>
     </div>
   )
