@@ -28,3 +28,14 @@
     padding: 0 30px;
   }
 }
+
+@media(max-width: 500px) {
+  .navigation div a {
+    font-size: 13px;
+  }
+
+  .navigation div svg {
+    margin-top: 3px;
+    font-size: 13px;
+  }
+}
