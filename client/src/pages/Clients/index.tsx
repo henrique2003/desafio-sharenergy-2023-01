@@ -4,9 +4,11 @@ import { BiPlus } from 'react-icons/bi'
 import './styles.css'
 import ShortClientItem from '../../components/ShortClientItem/index'
 import { IClient } from '../../components/ShortClientItem/index'
-import { toast } from 'react-toastify'
+import { Id, toast } from 'react-toastify'
 import api from '../../services/api'
 import setAuthorization from '../../utils/setAuthorization'
+import { isEqualLength, validateCpf, validateEmail, validateEmptyField } from '../../utils';
+import { emptyField, invalidField } from '../../helpers/error-messages';
 
 export type IAction = 'create' | 'edit' | 'show'
 
@@ -50,11 +52,49 @@ const Clients: React.FC = () => {
     }
   }
 
-  async function onSubmit(e: FormEvent): Promise<void> {
+  async function onSubmit(e: FormEvent): Promise<void | Id> {
     try {
       e.preventDefault()
 
+      if (!validateEmptyField(name)) {
+        return toast.error(emptyField('Nome'))
+      }
 
+      if (!validateEmail(email)) {
+        return toast.error(invalidField('Email'))
+      }
+
+      if (!isEqualLength(phone, 11)) {
+        return toast.error(invalidField('Telefone'))
+      }
+
+      if (!validateCpf(cpf)) {
+        return toast.error(invalidField('Cpf'))
+      }
+
+      if (!validateEmptyField(address)) {
+        return toast.error(emptyField('Endereço'))
+      }
+
+      const { data } = await api.post('/client/create', {
+        name,
+        email,
+        phone,
+        cpf,
+        address
+      })
+
+      // Clear inputs
+      setName('')
+      setEmail('')
+      setPhone('')
+      setCpf('')
+      setAddress('')
+
+      setClients([...clients, data.client])
+      setAction('show')
+
+      toast.success('Cliente cadastrado com sucesso')
     } catch (error) {
       toast.error('Erro ao cadastar cliente')
     }
