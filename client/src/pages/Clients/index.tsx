@@ -1,20 +1,29 @@
 import { useState, useEffect, FormEvent } from 'react'
+import { Id, toast } from 'react-toastify'
 import { BiPlus } from 'react-icons/bi'
 
 import './styles.css'
-import ShortClientItem from '../../components/ShortClientItem/index'
-import { IClient } from '../../components/ShortClientItem/index'
-import { Id, toast } from 'react-toastify'
+import { IClient } from '../../components/ClientItem'
 import api from '../../services/api'
 import setAuthorization from '../../utils/setAuthorization'
 import { isEqualLength, validateCpf, validateEmail, validateEmptyField } from '../../utils'
 import { emptyField, invalidField } from '../../helpers/error-messages'
-import { maskPhone, maskCpf } from '../../utils/maskers';
+import { maskPhone, maskCpf } from '../../utils/maskers'
+import { ClientItem } from '../../components'
 
 export type IAction = 'create' | 'edit' | 'show'
 
+interface IUpdateClientData {
+  name?: string
+  email?: string
+  phone?: number
+  address?: string
+  cpf?: number
+}
+
 const Clients: React.FC = () => {
   const [clients, setClients] = useState<IClient[]>([])
+  const [currentClientId, setCurrentClientId] = useState('')
   const [action, setAction] = useState<IAction>('show')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -37,8 +46,24 @@ const Clients: React.FC = () => {
     loadClients()
   }, [])
 
-  function handleEdit(): void {
+  function handleEdit(client: IClient): void {
+    const { _id, name, email, phone, address, cpf } = client
+
+    setCurrentClientId(_id)
+
+    // Set current name on form
+    setName(name)
+    setEmail(email)
+    setPhone(phone.toString())
+    setAddress(address)
+    setCpf(cpf.toString())
+
     setAction('edit')
+  }
+
+  function handleShow(): void {
+    clearFields()
+    setAction('show')
   }
 
   async function destroy(id: string): Promise<void> {
@@ -46,6 +71,9 @@ const Clients: React.FC = () => {
       await api.delete(`/client/${id}`)
 
       setClients(clients.filter(client => client._id !== id))
+      setAction('show')
+
+      clearFields()
 
       toast.success('Cliente deletado com sucesso')
     } catch (error) {
@@ -53,10 +81,8 @@ const Clients: React.FC = () => {
     }
   }
 
-  async function create(e: FormEvent): Promise<void | Id> {
+  async function create(): Promise<void | Id> {
     try {
-      e.preventDefault()
-
       if (!validateEmptyField(name)) {
         return toast.error(emptyField('Nome'))
       }
@@ -85,15 +111,8 @@ const Clients: React.FC = () => {
         address
       })
 
-      // Clear inputs
-      setName('')
-      setEmail('')
-      setPhone('')
-      setCpf('')
-      setAddress('')
-
       setClients([...clients, data.client])
-      setAction('show')
+      handleShow()
 
       toast.success('Cliente cadastrado com sucesso')
     } catch (error) {
@@ -101,29 +120,81 @@ const Clients: React.FC = () => {
     }
   }
 
+  async function edit(): Promise<void | Id> {
+    try {
+      let client: IUpdateClientData = {}
+
+      if (validateEmptyField(name)) client.name = name
+
+      if (validateEmptyField(email) && validateEmail(email)) client.email = email
+
+      if (validateEmptyField(phone) && isEqualLength(phone, 10)) client.phone = parseInt(phone)
+
+      if (validateEmptyField(cpf) && validateCpf(cpf)) client.cpf = parseInt(cpf)
+
+      if (validateEmptyField(address)) client.address = address
+
+      const { data } = await api.put(`/client/${currentClientId}`, client)
+
+      // Update state
+      setClients(clients.map(clientItem => {
+        if (clientItem._id === currentClientId) {
+          client.name && (clientItem.name = client.name)
+          client.email && (clientItem.email = client.email)
+          client.phone && (clientItem.phone = client.phone)
+          client.cpf && (clientItem.cpf = client.cpf)
+          client.address && (clientItem.address = client.address)
+        }
+
+        return clientItem
+      }))
+
+      handleShow()
+
+      setCurrentClientId('')
+      toast.success('Cliente editado com sucesso')
+    } catch (error) {
+      toast.error('Erro ao editado cliente')
+    }
+  }
+
+  function onSubmit(e: FormEvent): void {
+    e.preventDefault()
+
+    action === 'create' ? create() : edit()
+  }
+
+  function clearFields(): void {
+    setName('')
+    setEmail('')
+    setPhone('')
+    setCpf('')
+    setAddress('')
+  }
+
   return (
     <div className='clients'>
       <header>
         <h1>Clientes cadastrados</h1>
         {action === 'show' && (
-          <button type='button' className='create_client' onClick={() => setAction('create')}>
+          <button type='button' className='client_button' onClick={() => setAction('create')}>
             <BiPlus />Criar cliente
           </button>
         )}
-        {action === 'create' && (
-          <button type='button' className='create_client' onClick={() => setAction('show')}>
+        {action !== 'show' && (
+          <button type='button' className='client_button' onClick={() => handleShow()}>
             Ver Clientes
           </button>
         )}
       </header>
+      {/* Show all Clients */}
       {action === 'show' && clients.length > 0 && (
         <div className="client_list">
           {clients.map(client => (
-            <ShortClientItem
+            <ClientItem
               key={client._id}
               client={client}
               handleEdit={handleEdit}
-              destroy={destroy}
             />
           ))}
         </div>
@@ -133,8 +204,9 @@ const Clients: React.FC = () => {
           <p>Nenhum cliente cadastrado</p>
         </div>
       )}
-      {action === 'create' && (
-        <form className="clients_create_form" onSubmit={e => create(e)}>
+      {/* Create, Edit or Delete Client */}
+      {action !== 'show' && (
+        <form className="client_form" onSubmit={e => onSubmit(e)}>
           <div className="row">
             <div className="client_group">
               <label htmlFor="name">Nome:</label>
@@ -161,7 +233,7 @@ const Clients: React.FC = () => {
               <input
                 id="phone"
                 type="text"
-                placeholder='Ex: (11) 95942-6382'
+                placeholder='Ex: (11) 2649-7963'
                 value={maskPhone(phone)}
                 onChange={e => setPhone(maskPhone(e.target.value).replace(/\D/g, ''))}
               />
@@ -188,7 +260,12 @@ const Clients: React.FC = () => {
               />
             </div>
           </div>
-          <button type='submit'>Cadastrar</button>
+          <div className='client_form_actions'>
+            <button type='submit'>{action === 'create' ? 'Cadastrar' : 'Editar'}</button>
+            {action === 'edit' && (
+              <button type='button' onClick={() => destroy(currentClientId)}>Deletar</button>
+            )}
+          </div>
         </form>
       )}
     </div>

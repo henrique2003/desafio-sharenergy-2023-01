@@ -11,7 +11,7 @@
   font-size: 30px;
 }
 
-.clients .create_client {
+.clients .client_button {
   border: none;
   max-width: 200px;
   width: 100%;
@@ -31,7 +31,7 @@
   margin-top: 20px;
 }
 
-.clients .create_client svg {
+.clients .client_button svg {
   margin-right: 3px;
 }
 
@@ -41,6 +41,12 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
+  margin-top: 50px;
+}
+
+.clients .client_show {
+  max-width: 1200px;
+  width: 100%;
   margin-top: 50px;
 }
 
@@ -54,31 +60,32 @@
   color: var(--base-text);
 }
 
-.clients .clients_create_form {
+/* Form */
+.clients .client_form {
   padding: 35px;
   border: 1px solid var(--base-input);
   margin-top: 30px;
   border-radius: 10px;
 }
 
-.clients .clients_create_form .row {
+.clients .client_form .row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 25px;
 }
 
-.clients .clients_create_form .client_group {
+.clients .client_form .client_group {
   display: flex;
   flex-direction: column;
 }
 
-.clients .clients_create_form .client_group label {
+.clients .client_form .client_group label {
   font-size: 14px;
   color: var(--base-title);
   font-weight: 500;
 }
 
-.clients .clients_create_form .client_group input {
+.clients .client_form .client_group input {
   border: none;
   outline: none;
   color: var(--base-text);
@@ -92,21 +99,30 @@
   margin-top: 8px;
 }
 
-.clients .clients_create_form button {
+.clients .client_form .client_form_actions {
+  display: flex;
+  gap: 15px;
+  margin-top: 40px;
+}
+
+.clients .client_form button {
   border: 0;
   outline: 0;
   background: transparent;
   height: 40px;
   max-width: 150px;
   width: 100%;
-  color: var(--purple);
+  color: var(--red);
+  border: 1px solid var(--red);
   border-radius: 5px;
-  margin-top: 40px;
   font-size: 14px;
-  border: 1px solid var(--purple);
   cursor: pointer;
 }
 
+.clients .client_form button:first-child {
+  color: var(--purple);
+  border: 1px solid var(--purple);
+}
 
 @media(max-width: 1250px) {
   .clients {
