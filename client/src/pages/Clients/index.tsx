@@ -175,7 +175,7 @@ const Clients: React.FC = () => {
   return (
     <div className='clients'>
       <header>
-        <h1>Clientes cadastrados</h1>
+        <h1>{action === 'show' ? 'Clientes cadastrados' : action === 'create' ? 'Cria cliente' : `Cliente: ${name}`}</h1>
         {action === 'show' && (
           <button type='button' className='client_button' onClick={() => setAction('create')}>
             <BiPlus />Criar cliente
