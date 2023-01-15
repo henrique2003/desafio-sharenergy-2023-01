@@ -3,7 +3,8 @@ import validateEmptyField from './validateEmptyField'
 import validateEmail from './validateEmail'
 import isEqualLength from './isEqualLength'
 import validateCpf from './validateCpf'
-import { maskPhone } from './maskers'
+import { maskPhone, maskCpf } from './maskers'
+import setAuthorization from './setAuthorization'
 
 export {
   setToken,
@@ -11,5 +12,7 @@ export {
   validateEmail,
   isEqualLength,
   validateCpf,
-  maskPhone
+  maskPhone,
+  maskCpf,
+  setAuthorization
 }
