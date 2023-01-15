@@ -120,8 +120,8 @@
 }
 
 .clients .client_form button:first-child {
-  color: var(--purple);
-  border: 1px solid var(--purple);
+  color: var(--default);
+  border: 1px solid var(--default);
 }
 
 @media(max-width: 1250px) {

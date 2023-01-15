@@ -29,7 +29,7 @@
 .checkbox svg {
   display: none;
   font-size: 20px;
-  color: var(--purple);
+  color: var(--default);
 }
 
 .checkbox p {
@@ -45,6 +45,6 @@
 
 .active .box {
   background-color: var(--white);
-  border: 1px solid var(--purple);
+  border: 1px solid var(--default);
   transition: all .2s ease;
 }

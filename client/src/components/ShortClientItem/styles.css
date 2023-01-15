@@ -11,7 +11,7 @@
 }
 
 .short_client_item:hover {
-  border: 1px solid var(--purple);
+  border: 1px solid var(--default);
   transition: all .2s ease;
   cursor: pointer;
 }
@@ -31,7 +31,7 @@
   content: '';
   width: 1px;
   height: 40px;
-  background-color: var(--purple);
+  background-color: var(--default);
   border-radius: 30px;
 }
 
