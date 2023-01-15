@@ -204,12 +204,11 @@ const Clients: React.FC = () => {
     <div className='clients'>
       <header>
         <h1>{currentTitle()}</h1>
-        {action === 'show' && (
+        {action === 'show' ? (
           <button type='button' className='client_button' onClick={() => setAction('create')}>
             <BiPlus />Criar cliente
           </button>
-        )}
-        {action !== 'show' && (
+        ) : (
           <button type='button' className='client_button' onClick={() => handleShow()}>
             Ver clientes
           </button>
@@ -227,7 +226,7 @@ const Clients: React.FC = () => {
           ))}
         </div>
       )}
-      {/* Shol message when there are no clients */}
+      {/* Show message when there are no clients */}
       {action === 'show' && clients.length === 0 && (
         <div className="client_message">
           <p>Nenhum cliente cadastrado</p>
