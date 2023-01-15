@@ -47,7 +47,7 @@ const Users: React.FC = () => {
     return allUser
   }
 
-  const filteredUsers = filterUsers()
+  const filtredUsers = filterUsers()
 
   function onChangeFilter(e: React.ChangeEvent<HTMLInputElement>): void {
     setInputFilter(e.target.value)
@@ -57,12 +57,12 @@ const Users: React.FC = () => {
   // Pagination
   const usersPerPage = 20
   const endOffset = currentPagination + usersPerPage
-  const currentUsers = filteredUsers.slice(currentPagination, endOffset)
-  const pageCount = Math.ceil(filteredUsers.length / usersPerPage)
+  const currentUsers = filtredUsers.slice(currentPagination, endOffset)
+  const pageCount = Math.ceil(filtredUsers.length / usersPerPage)
 
 
   const handlePageClick = (e: { selected: number }) => {
-    const newOffset = (e.selected * usersPerPage) % filteredUsers.length
+    const newOffset = (e.selected * usersPerPage) % filtredUsers.length
 
     setCurrentPagination(newOffset)
   }
@@ -70,7 +70,7 @@ const Users: React.FC = () => {
   return (
     <div className='random_users'>
       <header>
-        <h1>Usuários encontrados: {filteredUsers.length}</h1>
+        <h1>Usuários encontrados: {filtredUsers.length}</h1>
         <div>
           <input
             placeholder='Procurar'
