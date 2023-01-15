@@ -20,7 +20,8 @@ const RandomUsers: React.FC = () => {
       <div className="status_code_image">
         <img
           src={`https://http.cat/${currentStatusCode}`}
-          alt={`Imagem de gatinho que retorna o estados`}
+          alt={`Imagem de gatinho com o código de estatos http ${currentStatusCode}`}
+          title={`Imagem de gatinho com o código de estatos http ${currentStatusCode}`}
         />
       </div>
     </div>

@@ -33,7 +33,11 @@ const RandomUserItem: React.FC<IProps> = ({ ramdomUser }) => {
       type='button'
       className="user_item"
     >
-      <img src={picture.large} alt="Foto pequena do usuário" />
+      <img
+        src={picture.large}
+        alt={`Foto de perilf do usuário ${name.first}`}
+        title={`Foto de perilf do usuário ${name.first}`}
+      />
       <div className='content'>
         <div>
           <ContentItem
