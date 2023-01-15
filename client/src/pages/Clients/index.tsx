@@ -7,7 +7,7 @@ import { IClient } from '../../components/ClientItem'
 import api from '../../services/api'
 import setAuthorization from '../../utils/setAuthorization'
 import { isEqualLength, validateCpf, validateEmail, validateEmptyField } from '../../utils'
-import { emptyField, invalidField } from '../../helpers/error-messages'
+import { clientActionError, clientActionSuccess, emptyField, invalidField } from '../../helpers/error-messages'
 import { maskPhone, maskCpf } from '../../utils/maskers'
 import { ClientItem, ShortClientItem } from '../../components'
 
@@ -90,9 +90,9 @@ const Clients: React.FC = () => {
 
       setClients(clients.filter(client => client._id !== id))
 
-      toast.success('Cliente deletado com sucesso')
+      toast.success(clientActionSuccess('deletado'))
     } catch (error) {
-      toast.error('Erro ao deletar cliente')
+      toast.error(clientActionError('deletar'))
     }
   }
 
@@ -129,9 +129,9 @@ const Clients: React.FC = () => {
       setClients([...clients, data.client])
       handleShow()
 
-      toast.success('Cliente cadastrado com sucesso')
+      toast.success(clientActionSuccess('cadastrado'))
     } catch (error) {
-      toast.error('Erro ao cadastar cliente')
+      toast.error(clientActionError('cadastar'))
     }
   }
 
@@ -140,13 +140,9 @@ const Clients: React.FC = () => {
       let client: IUpdateClientData = {}
 
       if (validateEmptyField(name)) client.name = name
-
       if (validateEmptyField(email) && validateEmail(email)) client.email = email
-
       if (validateEmptyField(phone) && isEqualLength(phone, 10)) client.phone = parseInt(phone)
-
       if (validateEmptyField(cpf) && validateCpf(cpf)) client.cpf = parseInt(cpf)
-
       if (validateEmptyField(address)) client.address = address
 
       const { data } = await api.put(`/client/${currentClient._id}`, client)
@@ -167,9 +163,9 @@ const Clients: React.FC = () => {
       handleShow()
 
       clearCurrentClient()
-      toast.success('Cliente editado com sucesso')
+      toast.success(clientActionSuccess('editado'))
     } catch (error) {
-      toast.error('Erro ao editado cliente')
+      toast.error(clientActionError('editar'))
     }
   }
 
