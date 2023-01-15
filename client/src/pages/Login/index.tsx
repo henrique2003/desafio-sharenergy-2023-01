@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState, useContext } from 'react';
+import { FormEvent, useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ClipLoader } from 'react-spinners'
 import { toast } from 'react-toastify'
@@ -8,6 +8,7 @@ import Checkbox from '../../components/Checkbox'
 import api from '../../services/api'
 import validateEmptyField from '../../utils/validateEmptyField'
 import { UserContext } from '../../context/user'
+import { emptyField, invalidField } from '../../helpers/error-messages'
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState('')
@@ -48,12 +49,12 @@ const Login: React.FC = () => {
 
     if (!validateEmptyField(username)) {
       setLoading(false)
-      return toast.error('Usuário em branco')
+      return toast.error(emptyField('Usuário'))
     }
 
     if (!validateEmptyField(password)) {
       setLoading(false)
-      return toast.error('Senha em branco')
+      return toast.error(emptyField('Senha'))
     }
 
     try {
@@ -71,7 +72,7 @@ const Login: React.FC = () => {
       setLoading(false)
       toast.success('Logado com sucesso')
     } catch (error) {
-      toast.error('Email ou senha inválido')
+      toast.error(invalidField('Email ou senha'))
       setLoading(false)
     }
   }
