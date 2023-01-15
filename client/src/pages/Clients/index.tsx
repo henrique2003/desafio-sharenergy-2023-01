@@ -9,9 +9,9 @@ import setAuthorization from '../../utils/setAuthorization'
 import { isEqualLength, validateCpf, validateEmail, validateEmptyField } from '../../utils'
 import { emptyField, invalidField } from '../../helpers/error-messages'
 import { maskPhone, maskCpf } from '../../utils/maskers'
-import { ClientItem } from '../../components'
+import { ClientItem, ShortClientItem } from '../../components'
 
-export type IAction = 'create' | 'edit' | 'show'
+export type IAction = 'create' | 'edit' | 'show' | 'show-one'
 
 interface IUpdateClientData {
   name?: string
@@ -23,7 +23,14 @@ interface IUpdateClientData {
 
 const Clients: React.FC = () => {
   const [clients, setClients] = useState<IClient[]>([])
-  const [currentClientId, setCurrentClientId] = useState('')
+  const [currentClient, setCurrentClient] = useState<IClient>({
+    _id: '',
+    name: '',
+    email: '',
+    phone: 0,
+    cpf: 0,
+    address: ''
+  })
   const [action, setAction] = useState<IAction>('show')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -46,12 +53,16 @@ const Clients: React.FC = () => {
     loadClients()
   }, [])
 
-  function handleEdit(client: IClient): void {
-    const { _id, name, email, phone, address, cpf } = client
+  function handleShowOne(client: IClient): void {
+    setCurrentClient(client)
 
-    setCurrentClientId(_id)
+    setAction('show-one')
+  }
 
-    // Set current name on form
+  function handleEdit(): void {
+    const { name, email, phone, address, cpf } = currentClient
+
+    // Set current form data
     setName(name)
     setEmail(email)
     setPhone(phone.toString())
@@ -63,6 +74,13 @@ const Clients: React.FC = () => {
 
   function handleShow(): void {
     clearFields()
+    clearCurrentClient()
+    setAction('show')
+  }
+
+  async function handleDestroy(id: string): Promise<void> {
+    await destroy(id)
+    clearCurrentClient()
     setAction('show')
   }
 
@@ -71,9 +89,6 @@ const Clients: React.FC = () => {
       await api.delete(`/client/${id}`)
 
       setClients(clients.filter(client => client._id !== id))
-      setAction('show')
-
-      clearFields()
 
       toast.success('Cliente deletado com sucesso')
     } catch (error) {
@@ -134,16 +149,16 @@ const Clients: React.FC = () => {
 
       if (validateEmptyField(address)) client.address = address
 
-      const { data } = await api.put(`/client/${currentClientId}`, client)
+      const { data } = await api.put(`/client/${currentClient._id}`, client)
 
       // Update state
       setClients(clients.map(clientItem => {
-        if (clientItem._id === currentClientId) {
-          client.name && (clientItem.name = client.name)
-          client.email && (clientItem.email = client.email)
-          client.phone && (clientItem.phone = client.phone)
-          client.cpf && (clientItem.cpf = client.cpf)
-          client.address && (clientItem.address = client.address)
+        if (clientItem._id === currentClient._id) {
+          client.name && (clientItem.name = data.client.name)
+          client.email && (clientItem.email = data.client.email)
+          client.phone && (clientItem.phone = data.client.phone)
+          client.cpf && (clientItem.cpf = data.client.cpf)
+          client.address && (clientItem.address = data.client.address)
         }
 
         return clientItem
@@ -151,7 +166,7 @@ const Clients: React.FC = () => {
 
       handleShow()
 
-      setCurrentClientId('')
+      clearCurrentClient()
       toast.success('Cliente editado com sucesso')
     } catch (error) {
       toast.error('Erro ao editado cliente')
@@ -172,10 +187,27 @@ const Clients: React.FC = () => {
     setAddress('')
   }
 
+  function clearCurrentClient(): void {
+    setCurrentClient({
+      _id: '',
+      name: '',
+      email: '',
+      phone: 0,
+      cpf: 0,
+      address: ''
+    })
+  }
+
+  function currentTitle(): string {
+    if (action === 'show') return 'Clientes cadastrados'
+    else if (action === 'create') return 'Criar cliente'
+    else return `Cliente: ${currentClient.name}`
+  }
+
   return (
     <div className='clients'>
       <header>
-        <h1>{action === 'show' ? 'Clientes cadastrados' : action === 'create' ? 'Cria cliente' : `Cliente: ${name}`}</h1>
+        <h1>{currentTitle()}</h1>
         {action === 'show' && (
           <button type='button' className='client_button' onClick={() => setAction('create')}>
             <BiPlus />Criar cliente
@@ -191,21 +223,22 @@ const Clients: React.FC = () => {
       {action === 'show' && clients.length > 0 && (
         <div className="client_list">
           {clients.map(client => (
-            <ClientItem
+            <ShortClientItem
               key={client._id}
               client={client}
-              handleEdit={handleEdit}
+              handleShowOne={handleShowOne}
             />
           ))}
         </div>
       )}
+      {/* Shol message when there are no clients */}
       {action === 'show' && clients.length === 0 && (
         <div className="client_message">
           <p>Nenhum cliente cadastrado</p>
         </div>
       )}
       {/* Create, Edit or Delete Client */}
-      {action !== 'show' && (
+      {(action === 'create' || action === 'edit') && (
         <form className="client_form" onSubmit={e => onSubmit(e)}>
           <div className="row">
             <div className="client_group">
@@ -262,11 +295,16 @@ const Clients: React.FC = () => {
           </div>
           <div className='client_form_actions'>
             <button type='submit'>{action === 'create' ? 'Cadastrar' : 'Editar'}</button>
-            {action === 'edit' && (
-              <button type='button' onClick={() => destroy(currentClientId)}>Deletar</button>
-            )}
           </div>
         </form>
+      )}
+      {/* Show a unique user */}
+      {action === 'show-one' && (
+        <ClientItem
+          client={currentClient}
+          handleDestroy={handleDestroy}
+          handleEdit={handleEdit}
+        />
       )}
     </div>
   )

@@ -1,3 +1,7 @@
+import { AiOutlineEdit } from 'react-icons/ai'
+import { FaTrash } from 'react-icons/fa'
+
+import { maskCpf, maskPhone } from '../../utils/maskers'
 import './styles.css'
 
 export interface IClient {
@@ -12,30 +16,60 @@ export interface IClient {
 interface IProps {
   client: IClient
   handleEdit: (client: IClient) => void
+  handleDestroy: (id: string) => void
 }
 
-const ClientItem: React.FC<IProps> = ({ client, handleEdit }) => {
-  const { _id, email, name } = client
+const ClientItem: React.FC<IProps> = ({ client, handleEdit, handleDestroy }) => {
+  const { email, name, phone, cpf, address } = client
 
   return (
-    <button className="client_item" type='button' onClick={() => handleEdit(client)}>
+    <div className="client_item">
       <div className="client_content">
         <div className="client_content_item">
-          <div className="dot"></div>
+          <div className="border"></div>
           <div>
             <h4>Nome:</h4>
             <p>{name}</p>
           </div>
         </div>
         <div className="client_content_item">
-          <div className="dot"></div>
+          <div className="border"></div>
           <div>
             <h4>Email:</h4>
             <p>{email}</p>
           </div>
         </div>
+        <div className="client_content_item">
+          <div className="border"></div>
+          <div>
+            <h4>Telefone:</h4>
+            <p>{maskPhone(phone.toString())}</p>
+          </div>
+        </div>
+        <div className="client_content_item">
+          <div className="border"></div>
+          <div>
+            <h4>Cpf:</h4>
+            <p>{maskCpf(cpf.toString())}</p>
+          </div>
+        </div>
+        <div className="client_content_item">
+          <div className="border"></div>
+          <div>
+            <h4>Endereço:</h4>
+            <p>{address}</p>
+          </div>
+        </div>
       </div>
-    </button>
+      <div className="client_item_actions">
+        <button type='button' onClick={() => handleEdit(client)}>
+          <AiOutlineEdit />
+        </button>
+        <button type='button' onClick={() => handleDestroy(client._id)}>
+          <FaTrash />
+        </button>
+      </div>
+    </div>
   )
 }
 
