@@ -3,6 +3,7 @@ import { BiSearchAlt2 } from 'react-icons/bi'
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs'
 import ReactPaginate from 'react-paginate'
 import axios from 'axios'
+import { PuffLoader } from 'react-spinners'
 
 import UserItem, { IRamdomUser } from '../../components/RandomUserItem'
 import './styles.css'
@@ -13,7 +14,7 @@ const Users: React.FC = () => {
   const [inputFilter, setInputFilter] = useState('')
 
   useEffect(() => {
-    async function loadRadomusers(): Promise<void> {
+    async function loadRandomUsers(): Promise<void> {
       try {
         const { data } = await axios.get('https://randomuser.me/api/?results=100')
 
@@ -23,7 +24,7 @@ const Users: React.FC = () => {
       }
     }
 
-    loadRadomusers()
+    loadRandomUsers()
 
     setCurrentPagination(0)
   }, [])
@@ -86,9 +87,10 @@ const Users: React.FC = () => {
             <UserItem key={i} ramdomUser={item} />
           )))}
       </section>
-      {currentUsers.length <= 0 ? (
+      {(inputFilter.length > 0 && currentUsers.length === 0) && (
         <p className='filter_not_found'>Nehum resultado para "{inputFilter}"</p>
-      ) : (
+      )}
+      {currentUsers.length > 0 && (
         <ReactPaginate
           breakLabel="..."
           nextLabel={<BsArrowRight />}
@@ -101,6 +103,16 @@ const Users: React.FC = () => {
           previousLinkClassName={"previous"}
           nextLinkClassName={"next"}
           onClick={() => window.scrollTo(0, 0)}
+        />
+      )}
+      {(currentUsers.length === 0 && inputFilter.length === 0) && (
+        <PuffLoader
+          loading
+          color="rgba(0,0,0,0.6)"
+          size={50}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          className="loading"
         />
       )}
     </div>

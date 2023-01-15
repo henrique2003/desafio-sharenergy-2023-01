@@ -57,7 +57,7 @@ const Dogs: React.FC = () => {
             size={40}
             aria-label="Loading Spinner"
             data-testid="loader"
-            className='loading'
+            className="loading"
           />
         ) : (
           <div className="bg_image" style={{
