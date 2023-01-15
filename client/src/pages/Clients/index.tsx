@@ -211,7 +211,7 @@ const Clients: React.FC = () => {
         )}
         {action !== 'show' && (
           <button type='button' className='client_button' onClick={() => handleShow()}>
-            Ver Clientes
+            Ver clientes
           </button>
         )}
       </header>

@@ -82,7 +82,7 @@
 .clients .client_form .client_group label {
   font-size: 14px;
   color: var(--base-title);
-  font-weight: 500;
+  font-weight: normal;
 }
 
 .clients .client_form .client_group input {
@@ -96,7 +96,7 @@
   height: 40px;
   font-size: 14px;
   padding: 0 15px;
-  margin-top: 8px;
+  margin-top: 5px;
 }
 
 .clients .client_form .client_form_actions {
@@ -163,8 +163,22 @@
     text-align: center;
   }
 
-  .clients button {
+  .clients .client_button {
     margin: 0 auto;
     margin-top: 15px;
+  }
+
+  .clients .client_form .row {
+    grid-template-columns: repeat(1, 1fr);
+    gap: 20px;
+  }
+
+  .clients .client_form .client_group input {
+    margin-top: 5px;
+  }
+
+  .clients .client_form .client_form_actions {
+    gap: 15px;
+    margin-top: 25px;
   }
 }
