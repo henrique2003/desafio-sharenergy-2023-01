@@ -44,12 +44,6 @@
   font-weight: normal;
 }
 
-.client_item .client_actions {
-  display: flex;
-  gap: 20px;
-  margin-top: 30px;
-}
-
 .client_item .client_item_actions {
   display: flex;
   gap: 15px;
@@ -86,4 +80,20 @@
   color: var(--purple);
   font-size: 23px;
   margin-top: -2px;
+}
+
+@media(max-width: 700px) {
+  .client_item .client_content {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media(max-width: 400px) {
+  .client_item {
+    padding: 20px 20px;
+  }
+
+  .client_item .client_item_actions {
+    gap: 5px;
+  }
 }

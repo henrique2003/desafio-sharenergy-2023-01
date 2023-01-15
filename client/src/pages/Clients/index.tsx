@@ -298,7 +298,7 @@ const Clients: React.FC = () => {
           </div>
         </form>
       )}
-      {/* Show a unique user */}
+      {/* Show a unique client */}
       {action === 'show-one' && (
         <ClientItem
           client={currentClient}
