@@ -7,5 +7,690 @@
       "email": "henrique.de.melo.cristioglu@gmail.com"
     },
     "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3333/api",
+      "description": "API"
+    }
+  ],
+  "paths": {
+    "/user/login": {
+      "post": {
+        "summary": "Login do usuário",
+        "description": "Essa rota autentica o usuário",
+        "tags": [
+          "User"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "username": "desafiosharenergy",
+                    "password": "sh@r3n3rgy"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "invalid-username": {
+                    "summary": "Campo username inválido",
+                    "value": {
+                      "message": "Campo username inválido"
+                    }
+                  },
+                  "empty-password": {
+                    "summary": "Senha em branco",
+                    "value": {
+                      "message": "Senha em branco"
+                    }
+                  },
+                  "invalid-password": {
+                    "summary": "Campo password inválido",
+                    "value": {
+                      "message": "Campo password inválido"
+                    }
+                  },
+                  "user-not-found": {
+                    "summary": "Usuário não encontrado",
+                    "value": {
+                      "message": "Usuário não encontrado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "unauthorized": {
+                    "summary": "Server Error",
+                    "value": {
+                      "message": "Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse",
+                  "token": {
+                    "type": "string"
+                  }
+                },
+                "examples": {
+                  "data": {
+                    "summary": "Usuário logado",
+                    "value": {
+                      "user": {
+                        "_id": "63bd6ffe22f861a2c27c9073",
+                        "username": "desafiosharenergy",
+                        "createdAt": "2023-01-10T14:02:38.823Z",
+                        "updatedAt": "2023-01-10T14:02:38.823Z",
+                        "__v": 0
+                      },
+                      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYmQ2ZmZlMjJmODYxYTJjMjdjOTA3MyIsImlhdCI6MTY3MzUzNTQ0OH0.lsp7bxGtT8ngW7yQiZ2X5gVxpNG64DJV0qRrrKjxoXI"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user": {
+      "get": {
+        "summary": "Carregar usuário",
+        "description": "Essa rota carrega o conteúdo do usuário logado",
+        "tags": [
+          "User"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "unauthorized": {
+                    "summary": "Não autorizado",
+                    "value": {
+                      "message": "Não autorizado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "unauthorized": {
+                    "summary": "Server Error",
+                    "value": {
+                      "message": "Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserResponse"
+                },
+                "examples": {
+                  "data": {
+                    "summary": "Conteúdo ao usuário",
+                    "value": {
+                      "user": {
+                        "_id": "63bd6ffe22f861a2c27c9073",
+                        "username": "desafiosharenergy",
+                        "createdAt": "2023-01-10T14:02:38.823Z",
+                        "updatedAt": "2023-01-10T14:02:38.823Z",
+                        "__v": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client": {
+      "get": {
+        "summary": "Carregar clientes",
+        "description": "Essa rota carrega o conteúdo de todos os clientes cadastrados",
+        "tags": [
+          "Client"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "unauthorized": {
+                    "summary": "Não autorizado",
+                    "value": {
+                      "message": "Não autorizado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "unauthorized": {
+                    "summary": "Server Error",
+                    "value": {
+                      "message": "Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "$ref": "#/components/schemas/Client"
+                },
+                "examples": {
+                  "data": {
+                    "summary": "Clientes cadastrados",
+                    "value": {
+                      "clients": [
+                        {
+                          "_id": "63c30b08dcbbdd768be5016f",
+                          "name": "Nome filtrado",
+                          "email": "NomeFiltrado@gmail.com",
+                          "phone": 1126497962,
+                          "address": "Rua Cipriano Barata 1051",
+                          "cpf": 51661531890,
+                          "createdAt": "2023-01-14T20:05:28.066Z",
+                          "updatedAt": "2023-01-14T21:36:22.236Z",
+                          "__v": 0
+                        },
+                        {
+                          "_id": "63c316aedcbbdd768be50188",
+                          "name": "Carlos Eduardo",
+                          "email": "kadufenix101@gmail.com",
+                          "phone": 1124455352,
+                          "address": "Rua Alexandre Levi 1010",
+                          "cpf": 20683669087,
+                          "createdAt": "2023-01-14T20:55:10.091Z",
+                          "updatedAt": "2023-01-15T00:21:47.157Z",
+                          "__v": 0
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/create": {
+      "post": {
+        "summary": "Criar novo cliente",
+        "description": "Essa rota cria um novo cliente",
+        "tags": [
+          "Client"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Client"
+              },
+              "examples": {
+                "client": {
+                  "value": {
+                    "name": "Nome filtrado",
+                    "email": "NomeFiltrado@gmail.com",
+                    "phone": 1126497962,
+                    "cpf": 51661531890,
+                    "address": "Rua Cipriano Barata 1051"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "unauthorized": {
+                    "summary": "Não autorizado",
+                    "value": {
+                      "message": "Não autorizado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "unauthorized": {
+                    "summary": "Server Error",
+                    "value": {
+                      "message": "Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "invalid-name": {
+                    "summary": "Campo nome inválido",
+                    "value": {
+                      "message": "Campo nome inválido"
+                    }
+                  },
+                  "invalid-email": {
+                    "summary": "Campo email inválido",
+                    "value": {
+                      "message": "Campo email inválido"
+                    }
+                  },
+                  "invalid-address": {
+                    "summary": "Campo endereço inválido",
+                    "value": {
+                      "message": "Campo endereço inválido"
+                    }
+                  },
+                  "invalid-phone": {
+                    "summary": "Campo telefone inválido",
+                    "value": {
+                      "message": "Campo telefone inválido"
+                    }
+                  },
+                  "invalid-cpf": {
+                    "summary": "Campo cpf inválido",
+                    "value": {
+                      "message": "Campo cpf inválido"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Client"
+                },
+                "examples": {
+                  "data": {
+                    "summary": "Cliente cadastrado",
+                    "value": {
+                      "client": {
+                        "_id": "63c30b08dcbbdd768be5016f",
+                        "name": "Nome filtrado",
+                        "email": "NomeFiltrado@gmail.com",
+                        "phone": 1126497962,
+                        "address": "Rua Cipriano Barata 1051",
+                        "cpf": 51661531890,
+                        "createdAt": "2023-01-14T20:05:28.066Z",
+                        "updatedAt": "2023-01-14T21:36:22.236Z",
+                        "__v": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/edit/:id": {
+      "put": {
+        "summary": "Editar um cliente",
+        "description": "Essa rota edita os dados de um cliente",
+        "tags": [
+          "Client"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Id do cliente a ser editado",
+            "required": "true"
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Client"
+              },
+              "examples": {
+                "client": {
+                  "value": {
+                    "name": "Nome filtrado 2",
+                    "email": "NomeFiltrado2@gmail.com",
+                    "phone": 1126497962,
+                    "cpf": 51661531890,
+                    "address": "Rua Cipriano Barata 1052"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "unauthorized": {
+                    "summary": "Não autorizado",
+                    "value": {
+                      "message": "Não autorizado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "unauthorized": {
+                    "summary": "Server Error",
+                    "value": {
+                      "message": "Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "client-not-found": {
+                    "summary": "Cliente não encotrado",
+                    "value": {
+                      "message": "Cliente não encotrado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "$ref": "#/components/schemas/Client"
+                },
+                "examples": {
+                  "data": {
+                    "summary": "Cliente editado",
+                    "value": {
+                      "client": {
+                        "_id": "63c30b08dcbbdd768be5016f",
+                        "name": "Nome filtrado 2",
+                        "email": "NomeFiltrado2@gmail.com",
+                        "phone": 1126497962,
+                        "cpf": 51661531890,
+                        "address": "Rua Cipriano Barata 1052",
+                        "createdAt": "2023-01-14T20:05:28.066Z",
+                        "updatedAt": "2023-01-16T21:36:22.236Z",
+                        "__v": 0
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/client/:id": {
+      "delete": {
+        "summary": "Deletar cliente",
+        "description": "Essa rota deleta um cliente",
+        "tags": [
+          "Client"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Id do cliente a ser deletado",
+            "required": "true"
+          }
+        ],
+        "responses": {
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "unauthorized": {
+                    "summary": "Não autorizado",
+                    "value": {
+                      "message": "Não autorizado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server Error",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "unauthorized": {
+                    "summary": "Server Error",
+                    "value": {
+                      "message": "Server Error"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "required-client-id": {
+                    "summary": "Necessário id do client",
+                    "value": {
+                      "message": "Necessário id do client"
+                    }
+                  },
+                  "client-not-found": {
+                    "summary": "Cliente não encotrado",
+                    "value": {
+                      "message": "Cliente não encotrado"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "number"
+          }
+        }
+      },
+      "Client": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "cpf": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "number"
+          }
+        }
+      },
+      "UserResponse": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          },
+          "createdAt": {
+            "type": "string"
+          },
+          "updatedAt": {
+            "type": "string"
+          },
+          "__v": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
   }
 }

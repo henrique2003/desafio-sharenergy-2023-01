@@ -143,7 +143,7 @@ const Clients: React.FC = () => {
       if (validateEmptyField(cpf) && validateCpf(cpf)) client.cpf = parseInt(cpf)
       if (validateEmptyField(address)) client.address = address
 
-      const { data } = await api.put(`/client/${currentClient._id}`, client)
+      const { data } = await api.put(`/client/edit/${currentClient._id}`, client)
 
       // Update state
       setClients(clients.map(clientItem => {

@@ -4,17 +4,18 @@ import bcrypt from 'bcrypt'
 import User from '../models/User'
 import { badRequest, ok, serverError, unauthorized } from '../helpers/response-status'
 import { generateToken, validateEmptyField } from '../utils'
+import { invalidFieldMsg } from '../helpers/response-message'
 
 class UserController {
   public async login(req: Request, res: Response): Promise<Response> {
     try {
       const { username, password, rememberLogin } = req.body
 
-      if (!validateEmptyField(password)) {
-        return badRequest(res, 'Nome de usuário inválido')
+      if (!validateEmptyField(username)) {
+        return badRequest(res, invalidFieldMsg('username'))
       }
 
-      if (!validateEmptyField(username)) {
+      if (!validateEmptyField(password)) {
         return badRequest(res, 'Senha em branco')
       }
 
@@ -25,7 +26,7 @@ class UserController {
       }
 
       if (!await bcrypt.compare(password, user.password)) {
-        return badRequest(res, 'Senha inválida')
+        return badRequest(res, invalidFieldMsg('password'))
       }
       user.password = undefined
 
