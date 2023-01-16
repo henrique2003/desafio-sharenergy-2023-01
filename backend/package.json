@@ -6,7 +6,9 @@
   "scripts": {
     "start": "npm run ./src/server.ts",
     "dev": "ts-node-dev ./src/server.ts",
-    "build": "yarn tsc"
+    "build": "yarn tsc",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -19,10 +21,12 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
+    "@jest/globals": "^29.3.1",
     "@types/bcrypt": "^5.0.0",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.15",
     "@types/helmet": "^4.0.0",
+    "@types/jest": "^29.2.5",
     "@types/jsonwebtoken": "^9.0.0",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^18.11.18",
@@ -36,6 +40,8 @@
     "eslint-plugin-n": "15.0.0",
     "eslint-plugin-promise": "6.0.0",
     "git-commit-msg-linter": "^4.5.0",
+    "jest": "^29.3.1",
+    "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.9.4"
