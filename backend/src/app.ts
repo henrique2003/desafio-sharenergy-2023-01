@@ -1,7 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 import helmet from 'helmet'
+import swaggerUi from 'swagger-ui-express'
 
+import swaggerDocument from './app/config/swagger.json'
 import connectDb from './app/config/db'
 import routes from './app/routes'
 
@@ -18,6 +20,7 @@ class App {
     this.express.use(cors())
     this.express.use(helmet())
     void this.configDb()
+    this.express.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
     this.express.use('/api', routes)
   }
 

@@ -1,0 +1,11 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API teste Sharenergy",
+    "description": "API do teste proposto pela Sharenergy",
+    "contact": {
+      "email": "henrique.de.melo.cristioglu@gmail.com"
+    },
+    "version": "1.0.0"
+  }
+}
