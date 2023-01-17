@@ -2,10 +2,10 @@ import mongoose from 'mongoose'
 
 async function connectDb(): Promise<void> {
   try {
-    mongoose.set('strictQuery', true)
-    await mongoose.connect(process.env.MONGO_URL)
-
     console.log('MongoDb connect')
+
+    mongoose.set('strictQuery', true)
+    await mongoose.connect('mongodb://127.0.0.1:27017/teste-sharenergy')
   } catch (error) {
     console.log('Error to connect with mongodb')
     process.exit(1)
