@@ -49,7 +49,7 @@ class UserController {
       const user = await User.findById(userId)
 
       if (!user) {
-        return unauthorized(res)
+        return badRequest(res, 'Usuário não encontrado')
       }
 
       return ok(res, { user })
