@@ -4,7 +4,7 @@
 
 # Link da explicação do projeto no YouTube
 
-[link](https://youtu.be/IDpB9fCvZuI)
+[link](https://www.youtube.com/watch?v=PorEu0hMnpo&ab_channel=HenriqueCristioglu)
 
 # Sobre o projeto
 
